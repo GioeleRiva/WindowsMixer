@@ -1,0 +1,24 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.javafxports:jfxmobile-plugin:1.0.0-b10'
+    }
+}
+
+apply plugin: 'org.javafxports.jfxmobile'
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'com.eg0.WindowsMixer'
+
+jfxmobile {
+    android {
+        compileSdkVersion = 25
+        manifest = 'src/android/AndroidManifest.xml'
+        androidSdk = 'C:/Users/Eg0/AppData/Local/Android/Sdk'
+    }
+}
