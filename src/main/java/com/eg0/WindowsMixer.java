@@ -29,6 +29,7 @@ public class WindowsMixer extends Application {
 
 	@Override
 	public void start(Stage stage) {
+
 		AnchorPane anchorPane = new AnchorPane();
 		anchorPane.setPrefSize(screenWidth, screenHeight);
 		anchorPane.getStylesheets().add("/AppStyle.css");

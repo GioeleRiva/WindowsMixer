@@ -20,6 +20,7 @@ public class AppPane extends Pane {
 	double screenWidth = 360;
 	double screenHeight = 640;
 	double textSize = screenHeight / 40;
+	int oldValue = 0;
 
 	MixerApplication mixerApplication;
 
@@ -90,16 +91,22 @@ public class AppPane extends Pane {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean wasChanging,
 					Boolean changing) {
-
-				int value = (int) slider.getValue();
-
+				oldValue = (int) slider.getValue();
 				if (!changing) {
-					Handler.setVolume(mixerApplication.getId(), value);
-					mixerApplication.setVolume(value);
+					Handler.setVolume(mixerApplication.getId(), (int) slider.getValue());
+					mixerApplication.setVolume((int) slider.getValue());
 				}
 			}
 		});
+		slider.setOnMouseDragged(drag -> {
+			if (slider.getValue() - oldValue > 10 || slider.getValue() - oldValue < -10) {
+				oldValue = (int) slider.getValue();
+				Handler.setVolume(mixerApplication.getId(), (int) slider.getValue());
+				mixerApplication.setVolume((int) slider.getValue());
+			}
+		});
 		slider.setOnMouseClicked(clicked -> {
+			oldValue = (int) slider.getValue();
 			Handler.setVolume(mixerApplication.getId(), (int) slider.getValue());
 			mixerApplication.setVolume((int) slider.getValue());
 		});

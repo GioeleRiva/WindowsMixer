@@ -2,20 +2,20 @@ package com.eg0;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 
 public class Broadcast implements Runnable {
-	
-	private String broadcastIP = "";
 
 	@Override
 	public void run() {
 		while (WindowsMixer.inSearch) {
 			try {
-				broadcastIP = getBroadcast();
+				String temp0 = getLocalIpAddress().replace(".", "#");
+				String[] temp = temp0.split("#");
+				String broadcastIP = temp[0] + "." + temp[1] + "." + temp[2] + ".255";
 				InetAddress host = InetAddress.getByName(broadcastIP);
 				DatagramSocket socket = new DatagramSocket(null);
 				byte[] buffer = new byte[2048];
@@ -32,31 +32,21 @@ public class Broadcast implements Runnable {
 		return;
 	}
 
-	  public static String getBroadcast(){
-		    String found_bcast_address=null;
-		     System.setProperty("java.net.preferIPv4Stack", "true"); 
-		        try
-		        {
-		          Enumeration<NetworkInterface> niEnum = NetworkInterface.getNetworkInterfaces();
-		          while (niEnum.hasMoreElements())
-		          {
-		            NetworkInterface ni = niEnum.nextElement();
-		            if(!ni.isLoopback()){
-		                for (InterfaceAddress interfaceAddress : ni.getInterfaceAddresses())
-		                {
-
-		                  found_bcast_address = interfaceAddress.getBroadcast().toString();
-		                  found_bcast_address = found_bcast_address.substring(1);
-
-		                }
-		            }
-		          }
-		        }
-		        catch (Exception e)
-		        {
-		          System.out.println(e);
-		        }
-		        return found_bcast_address;
+	public static String getLocalIpAddress() {
+		try {
+			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+				NetworkInterface intf = en.nextElement();
+				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+					InetAddress inetAddress = enumIpAddr.nextElement();
+					if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+						return inetAddress.getHostAddress();
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
-	
+		return null;
+	}
+
 }

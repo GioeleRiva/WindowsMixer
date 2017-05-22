@@ -58,6 +58,8 @@ public class WindowsMixerUtility extends Application {
 		stage.show();
 
 		startReceive();
+		
+		hide(stage);
 
 	}
 
