@@ -3,10 +3,9 @@
         <supports-screens android:xlargeScreens="true"/>
         <uses-permission android:name="android.permission.INTERNET"/>
         <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="21"/>
-        <application android:label="Windows Mixer" android:name="android.support.multidex.MultiDexApplication" android:icon="@mipmap/ic_launcher">
+        <application android:debuggable="false" android:label="Windows Mixer" android:name="android.support.multidex.MultiDexApplication" android:icon="@mipmap/ic_launcher">
                 <activity android:name="javafxports.android.FXActivity" android:label="Windows Mixer" android:configChanges="orientation|screenSize" android:screenOrientation="portrait">
                         <meta-data android:name="main.class" android:value="com.eg0.WindowsMixer"/>
-                        <meta-data android:name="debug.port" android:value="0"/>
                         <intent-filter>
                                 <action android:name="android.intent.action.MAIN"/>
                                 <category android:name="android.intent.category.LAUNCHER"/>

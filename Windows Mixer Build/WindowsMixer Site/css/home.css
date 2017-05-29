@@ -1,0 +1,90 @@
+body,
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    padding-top: 50px;
+    background-color: black;
+}
+
+.wide {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: -50px;
+    z-index: 0;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-color: transparent;
+    z-index: 1;
+}
+
+.navbar .navbar-inverse {
+    border: none;
+}
+
+.navbar .navbar-brand {
+    padding-top: 0px;
+}
+
+.navbar .nav>li>a {
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.navbar .navbar-brand img {
+    max-height: 50px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.text-center {
+    font-size: 4vh;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    padding-top: 5%;
+    max-width: 90%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-left {
+    font-size: 2.5vh;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    padding-top: 5%;
+    max-width: 90%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.question {
+    font-size: 3vh;
+}
+
+.myimg {
+    max-width: 90%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5%;
+}
+
+.row {
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    z-index: 0;
+}
+
+.spacing {
+    height: 10%;
+}

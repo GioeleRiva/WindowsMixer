@@ -15,26 +15,21 @@ import javafx.stage.Stage;
 public class WindowsMixer extends Application {
 
 	public static boolean inSearch = true;
-
 	static double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
 	static double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
 	static double textSize = screenHeight / 40;
-
 	static Pane content;
 	static Label connection;
-
 	public static ArrayList<MixerApplication> apps;
 	public static ArrayList<MixerApplication> appsDrawn = new ArrayList<>();
 	public static ArrayList<MixerApplication> appsAvailable;
 
 	@Override
 	public void start(Stage stage) {
-
 		AnchorPane anchorPane = new AnchorPane();
 		anchorPane.setPrefSize(screenWidth, screenHeight);
 		anchorPane.getStylesheets().add("/AppStyle.css");
 		anchorPane.setId("background");
-
 		connection = new Label("Waiting for connection");
 		connection.setPrefSize(screenWidth - 2 * screenHeight / 20, screenHeight / 20);
 		connection.setLayoutX(screenHeight / 20);
@@ -44,21 +39,17 @@ public class WindowsMixer extends Application {
 		connection.setId("connection");
 		connection.setAlignment(Pos.CENTER);
 		anchorPane.getChildren().add(connection);
-
 		content = new Pane();
 		content.setMaxSize(screenWidth - 2 * screenHeight / 20, screenHeight - 4 * screenHeight / 20);
 		content.setLayoutX(screenHeight / 20);
 		content.setLayoutY(3 * screenHeight / 20);
 		content.setId("content");
 		anchorPane.getChildren().add(content);
-
 		Scene scene = new Scene(anchorPane);
 		stage.setScene(scene);
 		stage.show();
-
 		startBroadcast();
 		startServer();
-
 	}
 
 	public static void connected() {
@@ -93,20 +84,16 @@ public class WindowsMixer extends Application {
 	}
 
 	public static void sliders(ArrayList<MixerApplication> applications) {
-
 		apps = applications;
 		ArrayList<String> appNames = new ArrayList<>();
 		ArrayList<String> appDrawnNames = new ArrayList<>();
 		appsAvailable = apps;
-
 		for (int a = 0; a < apps.size(); a++) {
 			appNames.add(apps.get(a).getProcessName());
 		}
-
 		for (int a = 0; a < appsDrawn.size(); a++) {
 			appDrawnNames.add(appsDrawn.get(a).getProcessName());
 		}
-
 		for (int i = 0; i < appsDrawn.size(); i++) {
 			if (!appNames.contains(appDrawnNames.get(i))) {
 				appDrawnNames.remove(i);
@@ -121,7 +108,6 @@ public class WindowsMixer extends Application {
 						}
 					}
 				}
-
 				for (int b = 0; b < appsAvailable.size(); b++) {
 					if (appsAvailable.get(b).getProcessName().equals(appsDrawn.get(i).getProcessName())) {
 						appsAvailable.remove(b);
@@ -129,7 +115,6 @@ public class WindowsMixer extends Application {
 				}
 			}
 		}
-
 		int toAdd = appsDrawn.size();
 		if (appsDrawn.size() < 4) {
 			for (int c = 0, d = 0; c < (4 - toAdd); c++, d++) {
@@ -137,23 +122,17 @@ public class WindowsMixer extends Application {
 					appsDrawn.add(appsAvailable.get(d));
 					appsAvailable.remove(d);
 					d--;
-
 				} catch (Exception e) {
-					// System.out.println(e);
 				}
 			}
 		}
-
 		drawSliders();
-
 	}
 
 	private static void drawSliders() {
-
 		Task<ArrayList<Pane>> task = new Task<ArrayList<Pane>>() {
 			@Override
 			protected ArrayList<Pane> call() throws Exception {
-
 				ArrayList<Pane> sliders = new ArrayList<Pane>();
 				for (int i = 0; i < appsDrawn.size(); i++) {
 					AppPane appPane = new AppPane(appsDrawn.get(i));

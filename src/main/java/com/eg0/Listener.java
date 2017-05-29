@@ -20,20 +20,16 @@ public class Listener implements Runnable {
 
 	private String serverIP;
 	private int port;
-
 	public static Socket socket;
 	private OutputStream outputStream;
 	private static ObjectOutputStream objectOutputStream;
 	private InputStream inputStream;
 	private ObjectInputStream objectInputStream;
-
 	static String temp0;
 	static String temp1;
 	static String temp3;
 	static String temp2;
-
 	static char u = '"';
-
 	private static ArrayList<MixerApplication> applicationsList;
 
 	public Listener(String serverIP, int port) {
@@ -57,7 +53,6 @@ public class Listener implements Runnable {
 			refresh();
 			Receiver.socket.close();
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 		try {
 			while (socket.isConnected()) {
@@ -75,10 +70,8 @@ public class Listener implements Runnable {
 						break;
 					}
 				}
-
 			}
 		} catch (Exception e) {
-			System.out.println(e);
 			applicationsList.clear();
 			WindowsMixerUtility.disconnected();
 			WindowsMixerUtility.startReceive();
@@ -123,9 +116,7 @@ public class Listener implements Runnable {
 				image = new Image("file:" + path);
 			}
 		}
-
 		int[][] data = new int[32][32];
-
 		PixelReader r = image.getPixelReader();
 		for (int i = 0; i < 32; i++) {
 			for (int j = 0; j < 32; j++) {
@@ -133,41 +124,32 @@ public class Listener implements Runnable {
 			}
 		}
 		return data;
-
 	}
 
 	public static void sendApps() throws Exception {
-
 		String temp0Path = System.getenv("APPDATA");
 		String temp1Path = temp0Path.replace("Roaming", "Local\\");
 		String path = temp1Path.replace("%20", " ");
-
 		applicationsList = new ArrayList<>();
-
 		Process process2 = Runtime.getRuntime().exec(temp3 + "MixerUtility.exe" + u + " getsystemvolume");
 		InputStream inputStream2 = process2.getInputStream();
 		InputStreamReader inputStreamReader2 = new InputStreamReader(inputStream2);
 		BufferedReader bufferedReader2 = new BufferedReader(inputStreamReader2);
 		String string2 = bufferedReader2.readLine();
-
 		Process process1 = Runtime.getRuntime().exec(temp3 + "MixerUtility.exe" + u + " getappvolume 0");
 		InputStream inputStream1 = process1.getInputStream();
 		InputStreamReader inputStreamReader1 = new InputStreamReader(inputStream1);
 		BufferedReader bufferedReader1 = new BufferedReader(inputStreamReader1);
 		String string1 = bufferedReader1.readLine();
-
 		applicationsList
 				.add(new MixerApplication("system", "System Volume", 4, Integer.valueOf(string2), makeIcon("system")));
 		applicationsList
 				.add(new MixerApplication("sounds", "System Sounds", 0, Integer.valueOf(string1), makeIcon("sounds")));
-
 		ArrayList<String> apps = new ArrayList<>();
 		ArrayList<String> appNames = new ArrayList<>();
-
 		@SuppressWarnings("unused")
 		Process process0 = Runtime.getRuntime().exec(temp3 + "MixerUtility.exe" + u + " getmixerapps");
 		Thread.sleep(500);
-
 		String temp2Path = path + "\\MixerUtility\\Applications.txt";
 		File file = new File(temp2Path);
 		file.createNewFile();
@@ -187,42 +169,33 @@ public class Listener implements Runnable {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e);
 		}
-
 		Process process = Runtime.getRuntime().exec(temp3 + "MixerUtility.exe" + u + " getmixerapps");
 		Thread.sleep(1000);
 		InputStream inputStream = process.getInputStream();
 		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 		BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
 		String string = null;
 		try {
 			while (!(string = bufferedReader.readLine()).equals(null)) {
 				String[] details = string.split("#");
 				String processName = details[0];
 				String customName = details[1];
-
 				for (int i = 0; i < apps.size(); i++) {
 					if (processName.equals(apps.get(i))) {
 						customName = appNames.get(i);
 					}
 				}
-
 				int id = Integer.valueOf(details[2]);
 				double volume = Double.valueOf(details[3]);
-
 				MixerApplication application = new MixerApplication(processName, customName, id, volume,
 						makeIcon(processName));
 				applicationsList.add(application);
 			}
 		} catch (Exception e) {
-			System.out.println(e);
 		}
-
 		WindowsMixerUtility.connected();
 		WindowsMixerUtility.addApplications(applicationsList);
-
 		Message message = new Message();
 		message.setMessageType(MessageType.PC_SENDAPPS);
 		message.setApplications(applicationsList);
@@ -230,7 +203,6 @@ public class Listener implements Runnable {
 			objectOutputStream.writeObject(message);
 			objectOutputStream.flush();
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 		WindowsMixerUtility.selection = false;
 	}

@@ -15,10 +15,9 @@ public class Receiver implements Runnable {
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			socket.receive(packet);
 			String received = packet.getAddress().getHostAddress();
-			System.out.println(received);
+			
 			WindowsMixerUtility.startListener(received);
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 	}
 

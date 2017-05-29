@@ -21,7 +21,6 @@ public class AppPaneDesktop extends Pane {
 	public AppPaneDesktop(MixerApplication mixerApplication) {
 		this.setPrefSize(300, 50);
 		this.getStylesheets().add("/AppStyle.css");
-
 		Pane icon = new Pane();
 		icon.setPrefSize(32, 32);
 		icon.setLayoutX(10);
@@ -38,21 +37,17 @@ public class AppPaneDesktop extends Pane {
 			icon.setBackground(new Background(
 					new BackgroundImage(img, null, null, null, new BackgroundSize(64, 64, false, false, false, true))));
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 		this.getChildren().add(icon);
-
 		Label name = new Label(mixerApplication.getCustomName());
 		name.setPrefSize(238, 40);
 		name.setLayoutX(52);
 		name.setLayoutY(5);
 		name.setId("name");
-		
 		Tooltip tooltip = new Tooltip("Click here to rename the application");
 		name.setTooltip(tooltip);
-		
 		name.setOnMouseClicked(rename -> {
-			if (!WindowsMixerUtility.selection && mixerApplication.getId()!=0 && mixerApplication.getId()!=4) {
+			if (!WindowsMixerUtility.selection && mixerApplication.getId() != 0 && mixerApplication.getId() != 4) {
 				WindowsMixerUtility.selection = true;
 				WindowsMixerUtility.renaming = true;
 				TextField textField = new TextField("Insert new name");
@@ -61,12 +56,11 @@ public class AppPaneDesktop extends Pane {
 				textField.setLayoutY(5);
 				textField.setId("name");
 				textField.setOnAction(renamed -> {
-					if (!textField.getText().equals("") && !textField.getText().equals("Insert new name") && !textField.getText().contains("#")) {
-
+					if (!textField.getText().equals("") && !textField.getText().equals("Insert new name")
+							&& !textField.getText().contains("#")) {
 						try {
 							write(mixerApplication.getProcessName(), textField.getText());
 						} catch (Exception e) {
-							System.out.println(e);
 						}
 						name.setText(textField.getText());
 						this.getChildren().remove(textField);
@@ -77,13 +71,11 @@ public class AppPaneDesktop extends Pane {
 						WindowsMixerUtility.renaming = false;
 						WindowsMixerUtility.selection = false;
 					}
-
 				});
 				this.getChildren().add(textField);
 			}
 		});
 		this.getChildren().add(name);
-
 	}
 
 	private void write(String process, String newName) throws Exception {
@@ -108,7 +100,7 @@ public class AppPaneDesktop extends Pane {
 					reWrite = reWrite + tempApp + "\r\n";
 				}
 			}
-			if (a==0){
+			if (a == 0) {
 				reWrite = reWrite + process + "#" + newName + "\r\n";
 			}
 		} else {

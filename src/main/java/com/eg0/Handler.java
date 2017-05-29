@@ -9,7 +9,6 @@ import java.net.Socket;
 public class Handler extends Thread {
 
 	private Socket socket;
-
 	InputStream inputStream;
 	ObjectInputStream objectInputStream;
 	OutputStream outputStream;
@@ -34,10 +33,8 @@ public class Handler extends Thread {
 						break;
 					}
 				}
-
 			}
 		} catch (Exception e) {
-			System.out.println(e);
 			WindowsMixer.disconnected();
 			WindowsMixer.startBroadcast();
 		}
@@ -53,7 +50,6 @@ public class Handler extends Thread {
 			objectOutputStream.reset();
 			objectOutputStream.flush();
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 	}
 

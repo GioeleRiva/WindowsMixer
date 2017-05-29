@@ -30,7 +30,6 @@ public class WindowsMixerUtility extends Application {
 
 	public static boolean renaming = false;
 	public static boolean selection = false;
-
 	private TrayIcon trayIcon;
 	private static AnchorPane anchorPane;
 	private static ScrollPane scrollPane;
@@ -39,28 +38,21 @@ public class WindowsMixerUtility extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-
 		createTrayIcon(stage);
 		Platform.setImplicitExit(false);
-
 		anchorPane = new AnchorPane();
 		anchorPane.setPrefSize(640, 360);
 		anchorPane.getStylesheets().add("/AppStyle.css");
 		anchorPane.setId("disc");
 		Scene scene = new Scene(anchorPane);
-
 		createLabel();
-
 		stage.getIcons().add(new Image(WindowsMixer.class.getResourceAsStream("/icon.png")));
 		stage.setTitle("Windows Mixer Utility");
 		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
-
 		startReceive();
-		
 		hide(stage);
-
 	}
 
 	private static void createLabel() {
@@ -114,7 +106,6 @@ public class WindowsMixerUtility extends Application {
 			try {
 				Listener.socket.close();
 			} catch (Exception e) {
-				System.out.println(e);
 			}
 		});
 		Thread thread = new Thread(task);
@@ -161,9 +152,7 @@ public class WindowsMixerUtility extends Application {
 
 	public void createTrayIcon(final Stage stage) {
 		if (SystemTray.isSupported()) {
-
 			SystemTray tray = SystemTray.getSystemTray();
-
 			java.awt.Image image = null;
 			try {
 				ClassLoader classLoader = getClass().getClassLoader();
@@ -173,23 +162,19 @@ public class WindowsMixerUtility extends Application {
 				image = ImageIO.read(icon).getScaledInstance(imageWidth.intValue(), imageWidth.intValue(),
 						java.awt.Image.SCALE_SMOOTH);
 			} catch (Exception e) {
-				System.out.println(e);
 			}
-
 			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 				@Override
 				public void handle(WindowEvent t) {
 					hide(stage);
 				}
 			});
-
 			final ActionListener closeListener = new ActionListener() {
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.exit(0);
 				}
 			};
-
 			ActionListener showListener = new ActionListener() {
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -201,7 +186,6 @@ public class WindowsMixerUtility extends Application {
 					});
 				}
 			};
-
 			PopupMenu popup = new PopupMenu();
 			MenuItem showItem = new MenuItem("Show");
 			showItem.addActionListener(showListener);
@@ -209,13 +193,11 @@ public class WindowsMixerUtility extends Application {
 			MenuItem closeItem = new MenuItem("Close");
 			closeItem.addActionListener(closeListener);
 			popup.add(closeItem);
-
 			trayIcon = new TrayIcon(image, "Windows Mixer Utility", popup);
 			trayIcon.addActionListener(showListener);
 			try {
 				tray.add(trayIcon);
 			} catch (Exception e) {
-				System.out.println(e);
 			}
 		}
 	}

@@ -26,7 +26,6 @@ public class Broadcast implements Runnable {
 				socket.close();
 				Thread.sleep(1000);
 			} catch (Exception e) {
-				System.out.println(e);
 			}
 		}
 		return;
@@ -44,7 +43,6 @@ public class Broadcast implements Runnable {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 		return null;
 	}

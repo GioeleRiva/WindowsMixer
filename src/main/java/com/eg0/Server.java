@@ -12,19 +12,16 @@ public class Server implements Runnable {
 		try {
 			serverSocket = new ServerSocket(port);
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 		try {
 			while (true) {
 				new Handler(serverSocket.accept()).start();
 			}
 		} catch (Exception e) {
-			System.out.println(e);
 		} finally {
 			try {
 				serverSocket.close();
 			} catch (Exception e) {
-				System.out.println(e);
 			}
 		}
 	}

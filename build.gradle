@@ -20,5 +20,11 @@ jfxmobile {
         compileSdkVersion = 25
         manifest = 'src/android/AndroidManifest.xml'
         androidSdk = 'C:/Users/Eg0/AppData/Local/Android/Sdk'
+        signingConfig {
+            storeFile file('Eg0applications_key.keystore')
+            storePassword '5q475W6P'
+            keyAlias 'eg0applications_key'
+            keyPassword '5q475W6P'
+        }
     }
 }

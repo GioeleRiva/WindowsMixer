@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class MixerApplication implements Serializable {
 
 	private static final long serialVersionUID = -2598126462104582440L;
-
 	private String processName;
 	private String customName;
 	private int id;

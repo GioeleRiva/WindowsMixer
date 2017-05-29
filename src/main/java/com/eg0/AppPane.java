@@ -21,11 +21,9 @@ public class AppPane extends Pane {
 	double screenHeight = 640;
 	double textSize = screenHeight / 40;
 	int oldValue = 0;
-
 	MixerApplication mixerApplication;
 
 	public AppPane(MixerApplication mixerApplication) {
-
 		this.mixerApplication = mixerApplication;
 		this.getChildren().clear();
 		drawPane();
@@ -35,14 +33,12 @@ public class AppPane extends Pane {
 		double paneWidth = (screenWidth - 2 * screenHeight / 20) / 4;
 		this.setPrefSize(paneWidth, screenHeight - 4 * screenHeight / 20);
 		this.getStylesheets().add("/AppStyle.css");
-
 		Label name = new Label(mixerApplication.getCustomName());
 		name.setPrefSize(paneWidth, screenHeight / 20);
 		name.setStyle("-fx-font-size: " + Double.toString(textSize * 0.5) + ";");
 		name.setAlignment(Pos.CENTER);
 		name.setId("info");
 		this.getChildren().add(name);
-
 		Pane icon = new Pane();
 		icon.setPrefSize(32, 32);
 		icon.setLayoutX((paneWidth - 32) / 2);
@@ -59,10 +55,8 @@ public class AppPane extends Pane {
 			icon.setBackground(new Background(
 					new BackgroundImage(img, null, null, null, new BackgroundSize(32, 32, false, false, false, true))));
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 		icon.setOnMouseClicked(change -> {
-			// TODO check
 			if (WindowsMixer.appsAvailable.size() != 0) {
 				int i = WindowsMixer.appsDrawn.indexOf(mixerApplication);
 				WindowsMixer.appsDrawn.remove(mixerApplication);
@@ -81,7 +75,6 @@ public class AppPane extends Pane {
 			}
 		});
 		this.getChildren().add(icon);
-
 		Slider slider = new Slider();
 		slider.setPrefSize(paneWidth, screenHeight - 6 * screenHeight / 20 - 42);
 		slider.setOrientation(Orientation.VERTICAL);
@@ -111,7 +104,6 @@ public class AppPane extends Pane {
 			mixerApplication.setVolume((int) slider.getValue());
 		});
 		this.getChildren().add(slider);
-
 	}
 
 }
